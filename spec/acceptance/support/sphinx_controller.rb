@@ -27,7 +27,8 @@ class SphinxController
   end
 
   def start
-    config.controller.start
+    output = config.controller.start
+    puts output if ENV['CI'] == 'true'
   end
 
   def stop
