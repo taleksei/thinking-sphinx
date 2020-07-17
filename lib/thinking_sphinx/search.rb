@@ -726,7 +726,7 @@ module ThinkingSphinx
 
     def sorted_fields_to_attributes(order_string)
       field_names.each { |field|
-        order_string.gsub!(/(^|\s)#{field}(,?\s|$)/) { |match|
+        order_string = order_string.gsub(/(^|\s)#{field}(,?\s|$)/) { |match|
           match.gsub field.to_s, field.to_s.concat("_sort")
         }
       }
