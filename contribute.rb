@@ -316,10 +316,10 @@ module ContributeHelper
   MONOCHROME_OUTPUT = "\\1"
   def subs_colour(data)
     data = data.gsub(%r{<b>(.*?)</b>}m, colourise_output? ? "\e[1m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
-    data.gsub!(%r{<red>(.*?)</red>}m, colourise_output? ? "\e[1m\e[31m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
-    data.gsub!(%r{<green>(.*?)</green>}m, colourise_output? ? "\e[1m\e[32m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
-    data.gsub!(%r{<yellow>(.*?)</yellow>}m, colourise_output? ? "\e[1m\e[33m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
-    data.gsub!(%r{<banner>(.*?)</banner>}m, colourise_output? ? "\e[33m\e[44m\e[1m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data = data.gsub(%r{<red>(.*?)</red>}m, colourise_output? ? "\e[1m\e[31m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data = data.gsub(%r{<green>(.*?)</green>}m, colourise_output? ? "\e[1m\e[32m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data = data.gsub(%r{<yellow>(.*?)</yellow>}m, colourise_output? ? "\e[1m\e[33m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
+    data = data.gsub(%r{<banner>(.*?)</banner>}m, colourise_output? ? "\e[33m\e[44m\e[1m\\1#{DEFAULT_TERMINAL_COLORS}" : MONOCHROME_OUTPUT)
 
     return data
   end
@@ -345,7 +345,7 @@ module Dependencies
   class Mysql < ContributeHelper::Gem
     name(defined?(JRUBY_VERSION) ? 'jdbc-mysql' : 'mysql')
   end
-  
+
   class Rspec < ContributeHelper::Gem
     name 'rspec'
   end
