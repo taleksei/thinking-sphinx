@@ -93,12 +93,7 @@ module ThinkingSphinx
     
     def primary_key_from_reflection
       if @reflection.options[:through]
-        if ThinkingSphinx.rails_3_1?
-          @reflection.source_reflection.foreign_key
-        else
-          @reflection.source_reflection.options[:foreign_key] ||
-          @reflection.source_reflection.primary_key_name
-        end
+        @reflection.source_reflection.foreign_key
       elsif @reflection.macro == :has_and_belongs_to_many
         @reflection.association_foreign_key
       else
@@ -109,11 +104,7 @@ module ThinkingSphinx
     def table
       if @reflection.options[:through] ||
         @reflection.macro == :has_and_belongs_to_many
-        if ThinkingSphinx.rails_3_1?
-          @join.tables.first.name
-        else
-          @join.aliased_join_table_name
-        end
+        @join.tables.first.name
       else
         @join.aliased_table_name
       end
@@ -172,27 +163,15 @@ module ThinkingSphinx
     end
     
     def join_association_class
-      if ThinkingSphinx.rails_3_1?
-        ::ActiveRecord::Associations::JoinDependency::JoinAssociation
-      else
-        ::ActiveRecord::Associations::ClassMethods::JoinDependency::JoinAssociation
-      end
+      ::ActiveRecord::Associations::JoinDependency::JoinAssociation
     end
     
     def join_parent(join)
-      if ThinkingSphinx.rails_3_1?
-        join.join_parts.first
-      else
-        join.joins.first
-      end
+      join.joins.first
     end
     
     def self.foreign_type(ref)
-      if ThinkingSphinx.rails_3_1?
-        ref.foreign_type
-      else
-        ref.options[:foreign_type]
-      end
+      ref.foreign_type
     end
     
     def rewrite_conditions
@@ -214,7 +193,7 @@ module ThinkingSphinx
       if defined?(ActsAsTaggableOn) &&
         @reflection.klass == ActsAsTaggableOn::Tagging &&
         @reflection.name.to_s[/_taggings$/]
-        condition.gsub! /taggings\.tag_id = tags\.id AND/, "" if ThinkingSphinx.rails_3_1?
+        condition.gsub! /taggings\.tag_id = tags\.id AND/, ""
         condition = condition.gsub /taggings\./, "#{quoted_alias @join}."
       end
       

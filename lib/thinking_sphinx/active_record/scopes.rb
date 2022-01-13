@@ -88,20 +88,12 @@ module ThinkingSphinx
         end
 
         def sphinx_scopes_support_classes
-          if ThinkingSphinx.rails_3_1?
-            [::ActiveRecord::Associations::CollectionProxy]
-          else
-            [::ActiveRecord::Associations::HasManyAssociation,
-             ::ActiveRecord::Associations::HasManyThroughAssociation]
-          end
+          [::ActiveRecord::Associations::CollectionProxy]
+          
         end
 
         def sphinx_scopes_support_mixin
-          if ThinkingSphinx.rails_3_1?
-            ::ThinkingSphinx::ActiveRecord::CollectionProxyWithScopes
-          else
-            ::ThinkingSphinx::ActiveRecord::HasManyAssociationWithScopes
-          end
+          ::ThinkingSphinx::ActiveRecord::CollectionProxyWithScopes
         end
 
       end
